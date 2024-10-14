@@ -9,7 +9,9 @@
 </head>
 <body>
 <h1>{{$company}} Contact {{$id}}</h1>
-<a href="{{route('about')}}">Terug</a>
+<a href="{{route('home')}}">Home</a>
+
+<a href="{{route('about')}}">About us</a>
 <ul>
     <li>Telefoon</li>
     <li>Mail</li>
