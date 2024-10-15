@@ -70,7 +70,6 @@
                             @else
                                 <p>log in</p>
                             @endauth
-
                     </main>
 
                 </div>

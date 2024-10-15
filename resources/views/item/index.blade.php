@@ -5,20 +5,17 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Contact</title>
+    <title>Items</title>
 </head>
 <body>
-<h1>{{$company}} Contact {{$id}}</h1>
-<a href="{{route('home')}}">Home</a>
-
-<a href="{{route('about')}}">About us</a>
-<ul>
-    <li>Telefoon</li>
-    <li>Mail</li>
-    <li>Discord</li>
-</ul>
-
-<?php return view('i') ?>
-
+@foreach($items as $item)
+    <tr>
+        <td>{{$item->name}}</td>
+        <td>{{$item->price}}</td>
+        <a href="{{ route('items.show', $item->id) }}">
+            Details
+        </a>
+    </tr>
+@endforeach
 </body>
 </html>
