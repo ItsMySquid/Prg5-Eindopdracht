@@ -21,4 +21,6 @@
 * Data vanuit database laten zien op /items
 * Detail pagina via de show functie
 
-
+16/10/2025
+* Create en post met formulier toegevoegd op item pagina
+* Delete optie

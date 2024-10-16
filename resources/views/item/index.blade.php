@@ -1,3 +1,4 @@
+<?php //dd($items)?><!---->
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,15 +9,25 @@
     <title>Items</title>
 </head>
 <body>
+<main>
+    @auth
+    <a href="{{route('items.create')}}">Create product</a>
+    @endauth
+
 @foreach($items as $item)
-    <tr>
-        <td>{{$item->name}}</td>
-        <td>{{$item->price}}</td>
-        <a href="{{ route('items.show', $item->id) }}">
-            Details
-        </a>
-    </tr>
-    <br>
+    <ul>
+        <li>{{$item->name}}</li>
+        <li>{{$item->price}}</li>
+        <li>{{$item->category->type}}</li>
+        <li>{{$item->category->rarity}}</li>
+        <a href="{{ route('items.show', $item->id) }}">Details</a>
+        <form action="{{route('items.destroy', $item->id)}}" method="post">
+            @csrf
+            @method('DELETE')
+            <input type="submit" value="delete">
+        </form>
+    </ul>
 @endforeach
+</main>
 </body>
 </html>

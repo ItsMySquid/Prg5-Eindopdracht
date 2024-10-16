@@ -13,6 +13,7 @@ class ItemController extends Controller
     public function index()
     {
         $items = Item::all();
+//        dd($items);
         return view('item.index', compact('items'));
     }
 
@@ -21,7 +22,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        return view('item.create');
     }
 
     /**
@@ -29,7 +30,16 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = new Item();
+
+//        $request->validate([]); // zelf opzoeken als validatie
+        $item->user_id = auth()->user()->id;
+        $item->name = $request->input('name');
+        $item->price = $request->input('price');
+        $item->category_id = 1;
+        $item->save();
+
+        return redirect()->route('items.index');
     }
 
     /**
@@ -62,6 +72,8 @@ class ItemController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $item = Item::find($id);
+        $item->delete();
+        return redirect()->route('items.index');
     }
 }
