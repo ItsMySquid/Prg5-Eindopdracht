@@ -19,3 +19,6 @@
 * Eerste database tabellen toevoegen
 * Data met model laten zien op /items website
 * Data vanuit database laten zien op /items
+* Detail pagina via de show functie
+
+

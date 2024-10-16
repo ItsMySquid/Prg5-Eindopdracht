@@ -25,10 +25,10 @@
                         </div>
                         @if (Route::has('login'))
                             <nav class="-mx-3 flex flex-1 justify-end">
-                                <a href="{{route('contact')}}"
+                                <a href="{{route('items.index')}}"
                                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                                 >
-                                    Contact
+                                    Market
                                 </a>
 
                                 <a href="{{route('about')}}"
@@ -65,11 +65,15 @@
                         @endif
                     </header>
                     <main>
+                        <div>
+                            <h1>Items</h1>
+
                             @auth
-                                <p>Ingelogd</p>
+                                <a href="{{ url('/dashboard') }}"><p>list items</p></a>
                             @else
-                                <p>log in</p>
+                                <p>log in om items te verkopen</p>
                             @endauth
+                        </div>
                     </main>
 
                 </div>

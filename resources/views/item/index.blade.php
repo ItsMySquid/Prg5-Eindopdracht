@@ -16,6 +16,7 @@
             Details
         </a>
     </tr>
+    <br>
 @endforeach
 </body>
 </html>
