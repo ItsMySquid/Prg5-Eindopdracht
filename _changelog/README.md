@@ -15,12 +15,17 @@
     * Kleine typfouten en onnodige categorien
 * Eerste aanpassingen home page
 
-15/10/2025
+15/10/2024
 * Eerste database tabellen toevoegen
 * Data met model laten zien op /items website
 * Data vanuit database laten zien op /items
 * Detail pagina via de show functie
 
-16/10/2025
+16/10/2024
 * Create en post met formulier toegevoegd op item pagina
 * Delete optie
+
+20/10/2024
+* Uiterlijke aanpassingen en verbeterde linkjes
+* Verschillende navigatie opties
+* Enkele authenticatie verbeteringen

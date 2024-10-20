@@ -10,24 +10,42 @@
 </head>
 <body>
 <main>
-    @auth
-    <a href="{{route('items.create')}}">Create product</a>
-    @endauth
+    <x-app-layout>
+        <div class="p-12">
+            <div class="container mx-auto">
+            @auth
+                @auth
+                    <div class="mb-4">
+                        <a href="{{route('items.create')}}" class="inline-block bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-300">
+                            Create product
+                        </a>
+                    </div>
+                @endauth
 
-@foreach($items as $item)
-    <ul>
-        <li>{{$item->name}}</li>
-        <li>{{$item->price}}</li>
-        <li>{{$item->category->type}}</li>
-        <li>{{$item->category->rarity}}</li>
-        <a href="{{ route('items.show', $item->id) }}">Details</a>
-        <form action="{{route('items.destroy', $item->id)}}" method="post">
-            @csrf
-            @method('DELETE')
-            <input type="submit" value="delete">
-        </form>
-    </ul>
-@endforeach
+            @endauth
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-white">
+                    @foreach($items as $item)
+                        <div class="bg-gray-800 p-4 rounded-md shadow-md">
+                            <p>{{$item->name}}</p>
+                            <p>{{ number_format($item->price, 0, ',', '.') }}</p>
+                            <p>{{$item->category->type}}</p>
+                            <p>{{$item->category->rarity}}</p>
+                            <a href="{{ route('items.show', $item->id) }}" class="text-blue-400 hover:underline">Details</a>
+                            <form action="{{route('items.destroy', $item->id)}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" value="delete" class="bg-red-500 text-white px-4 py-2 mt-2 rounded-md hover:bg-red-600">
+                            </form>
+                        </div>
+                    @endforeach
+                </div>
+
+            </div>
+        </div>
+
+
+    </x-app-layout>
 </main>
 </body>
 </html>

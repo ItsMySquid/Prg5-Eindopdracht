@@ -8,11 +8,9 @@
     <title>About us</title>
 </head>
 <body>
+<x-app-layout>
 <h1>Welkom</h1>
-<a href="{{route('home')}}">Home</a>
+</x-app-layout>
 
-
-<a href="{{route('contact', ['id' => 'ItsMySquid'])}}">Contact persoon</a>
-<a href="{{route('contact')}}">Standaard contact</a>
 </body>
 </html>

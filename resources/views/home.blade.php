@@ -69,7 +69,7 @@
                             <h1>Items</h1>
 
                             @auth
-                                <a href="{{ url('/dashboard') }}"><p>list items</p></a>
+                                <a href="{{route('items.index') }}"><p>list items</p></a>
                             @else
                                 <p>log in om items te verkopen</p>
                             @endauth
