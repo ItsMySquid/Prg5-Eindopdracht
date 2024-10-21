@@ -29,3 +29,7 @@
 * Uiterlijke aanpassingen en verbeterde linkjes
 * Verschillende navigatie opties
 * Enkele authenticatie verbeteringen
+
+21/10/2024
+* Filter systeem
+* Edit pagina

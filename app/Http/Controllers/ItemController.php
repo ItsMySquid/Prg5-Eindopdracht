@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
@@ -10,11 +11,19 @@ class ItemController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $filter)
     {
-        $items = Item::all();
-//        dd($items);
-        return view('item.index', compact('items'));
+        $category = Category::all();
+
+        $items = Item::query();
+
+        if ($filter->filled('category_id')){
+            $items->where('category_id', $filter->input('category_id'));
+        }
+
+        $items = $items->with('category')->get();
+
+        return view('item.index', compact('items', 'category'));
     }
 
     /**
@@ -56,15 +65,27 @@ class ItemController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $item = Item::find($id);
+        return view('item.edit', compact('item'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Item $item)
     {
-        //
+        // Velden opslaan in de database
+        $item->user_id = auth()->user()->id;
+        $item->name = $request->input('name');
+        $item->price = $request->input('price');
+        $item->category_id = 1;
+        $item->save();
+
+        // Sla de wijzigingen op
+        $item->save();
+
+        // Redirect terug naar de items pagina met een succesmelding
+        return redirect()->route('items.show', $item->id);
     }
 
     /**
