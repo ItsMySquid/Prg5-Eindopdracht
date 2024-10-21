@@ -16,7 +16,7 @@
         </style>
     </head>
     <body class="font-sans antialiased dark:bg-black dark:text-white/50">
-        <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
+        <div class="bg-black text-black/50 dark:bg-black dark:text-black/50">
             <div class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
                 <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                     <div class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
@@ -68,8 +68,9 @@
                     </div>
                     <div class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
                         <div class="text-center">
-                            <h1 class="text-6xl font-bold text-black dark:text-white mb-4">Skymarkt</h1>
-                            <h2 class="text-3xl font-semibold">Sell your Skyblock items here!</h2>
+                            <h1 class="text-xl font-bold text-black dark:text-white mb-4">Skymarkt</h1>
+                            <h2 class="text-xl font-semibold">Sell your Skyblock items here!</h2>
+
                         </div>
                     </div>
 
