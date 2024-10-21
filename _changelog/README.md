@@ -33,3 +33,5 @@
 21/10/2024
 * Filter systeem
 * Edit pagina
+* Create aanpassingen toevoeging category
+* My post aangemaakt met overzicht items van de gebruiker

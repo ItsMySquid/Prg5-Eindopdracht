@@ -12,16 +12,8 @@
     <x-app-layout>
         <div class="p-12">
             <div class="container mx-auto">
-                @auth
-                    <div class="mb-4">
-                        <a href="{{route('items.create')}}"
-                           class="inline-block bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-300">
-                            Create product
-                        </a>
-                    </div>
-                @endauth
 
-                    <div class="container mx-auto p-8">
+                    <div class="container mx-auto">
                         <form method="GET" action="{{ route('items.index') }}" class="flex justify-end mb-8">
                             <div class="bg-gray-800 p-4 rounded-lg shadow-md text-white w-1/3">
                                 <label for="category" class="block text-lg font-semibold mb-2">Filter by Category</label>
@@ -50,12 +42,14 @@
                             <p>{{$item->category->rarity}}</p>
                             <a href="{{ route('items.show', $item->id) }}"
                                class="text-blue-400 hover:underline">Details</a>
+                            @auth
                             <form action="{{route('items.destroy', $item->id)}}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <input type="submit" value="Delete"
                                        class="bg-red-500 text-white px-4 py-2 mt-2 rounded-md hover:bg-red-600">
                             </form>
+                            @endauth
                         </div>
                     @endforeach
                 </div>

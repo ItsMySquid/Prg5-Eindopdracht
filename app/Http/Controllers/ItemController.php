@@ -31,7 +31,8 @@ class ItemController extends Controller
      */
     public function create()
     {
-        return view('item.create');
+        $category = Category::all();
+        return view('item.create', compact('category'));
     }
 
     /**
@@ -45,7 +46,7 @@ class ItemController extends Controller
         $item->user_id = auth()->user()->id;
         $item->name = $request->input('name');
         $item->price = $request->input('price');
-        $item->category_id = 1;
+        $item->category_id = $request->input('category_id');
         $item->save();
 
         return redirect()->route('items.index');

@@ -21,6 +21,9 @@
                 <x-nav-link :href="route('items.index')" :active="request()->routeIs('items.index')">
                     {{ __('Market') }}
                 </x-nav-link>
+                <x-nav-link :href="route('my-items')" :active="request()->routeIs('my-items')">
+                    {{ __('My Items') }}
+                </x-nav-link>
             </div>
 
             <!-- Settings Dropdown -->
