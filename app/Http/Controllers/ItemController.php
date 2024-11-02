@@ -39,6 +39,13 @@ class ItemController extends Controller
     public function create()
     {
         $category = Category::all();
+
+        $viewedItems = session()->get('viewed_items', []);
+
+        if (count($viewedItems) < 3) {
+            return redirect()->route('items.index')->with('error', 'You must view at least 3 items before creating a new one.');
+        }
+
         return view('item.create', compact('category'));
     }
 
@@ -49,15 +56,22 @@ class ItemController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0|max:10000000',
+            'price' => 'required|numeric|min:0|max:1000000000',
             'category_id' => 'required|exists:categories,id',
-        ]);
+        ],[
+                'name.required' => 'Please provide a name for the item.',
+                'price.required' => 'The item must have a price between 0 and 1.000.000.000.',
+                'price.numeric' => 'The price must be a valid number between 0 and 1.000.000.000.',
+                'category_id.required' => 'Please select a category.',
+                'category_id.exists' => 'The selected category is invalid.',
+            ]);
 
         $item = new Item();
         $item->user_id = auth()->user()->id;
         $item->name = $validatedData['name'];
         $item->price = $validatedData['price'];
         $item->category_id = $validatedData['category_id'];
+        $item->status = 1;
         $item->save();
 
         return redirect()->route('items.index');
@@ -69,6 +83,14 @@ class ItemController extends Controller
     public function show(string $id)
     {
         $item = Item::find($id);
+
+        $viewedItems = session()->get('viewed_items', []);
+
+        if (!in_array($id, $viewedItems)) {
+            $viewedItems[] = $id;
+            session()->put('viewed_items', $viewedItems);
+        }
+
         return view('item.show', compact('item'));
     }
 
@@ -88,15 +110,15 @@ class ItemController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0|max:10000000',
-            'category_id' => 'required|exists:categories,id',
+            'price' => 'required|numeric|min:0|max:1000000000',
+        ],[
+            'name.required' => 'Please provide a name for the item.',
+            'price.required' => 'The item must have a price between 0 and 1.000.000.000.',
+            'price.numeric' => 'The price must be a valid number between 0 and 1.000.000.000.',
         ]);
 
-        $item = new Item();
-        $item->user_id = auth()->user()->id;
         $item->name = $validatedData['name'];
         $item->price = $validatedData['price'];
-        $item->category_id = $validatedData['category_id'];
         $item->save();
 
         return redirect()->route('items.show', $item->id);

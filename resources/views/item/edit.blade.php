@@ -23,14 +23,22 @@
 
                 <div class="mb-4">
                     <label for="name" class="block text-lg font-semibold">Name:</label>
-                    <input type="text" id="name" name="name" value="{{ $item->name }}"
+                    <input type="text" id="name" name="name" value="{{ old('name', $item->name) }}"
                            class="text-xl bg-gray-700 border-none rounded-md text-white p-2 w-full">
+
+                    @error('name')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="mb-4">
                     <label for="price" class="block text-lg font-semibold">Price:</label>
-                    <input type="number" id="price" name="price" value="{{ $item->price }}"
+                    <input type="number" id="price" name="price" value="{{ old('price'), $item->price }}"
                            class="text-2xl bg-gray-700 border-none rounded-md text-white p-2 w-full">
+
+                    @error('price')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="mt-6">

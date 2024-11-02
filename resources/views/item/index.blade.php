@@ -12,6 +12,11 @@
     <x-app-layout>
         <div class="p-12">
             <div class="container mx-auto">
+                @if (session('error'))
+                    <div class="bg-red-500 text-white p-4 rounded-md">
+                        {{ session('error') }}
+                    </div>
+                @endif
 
                 <div class="container mx-auto flex justify-between mb-8">
                     <!-- Filter functie links -->
