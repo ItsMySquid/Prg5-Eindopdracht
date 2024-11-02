@@ -100,7 +100,11 @@ class ItemController extends Controller
     public function edit(string $id)
     {
         $item = Item::find($id);
+        if (auth()->check() && $item->user_id === auth()->user()->id){
         return view('item.edit', compact('item'));
+        } else {
+            return redirect()->route('items.index')->with('error', 'You are not able to edit this item.');
+        }
     }
 
     /**
