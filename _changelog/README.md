@@ -35,3 +35,7 @@
 * Edit pagina
 * Create aanpassingen toevoeging category
 * My post aangemaakt met overzicht items van de gebruiker
+
+2/11/2024
+* Create pagina feedback
+* Diepere validatie

@@ -10,14 +10,14 @@
                     </a>
                 </div>
 
-                @auth
+                @if(\Auth::user()->is_admin)
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-                @endauth
+                @endif
                 <x-nav-link :href="route('items.index')" :active="request()->routeIs('items.index')">
                     {{ __('Market') }}
                 </x-nav-link>

@@ -15,16 +15,23 @@ class ItemController extends Controller
     {
         $category = Category::all();
 
-        $items = Item::query();
+        $items = Item::query()
+            ->where('status', 1) // Alleen items met 'status' 1
+            ->with('category'); // Eager load de 'category' relatie
 
-        if ($filter->filled('category_id')){
+        if ($filter->filled('search')) {
+            $items->where('name', 'like', '%' . $filter->input('search') . '%'); // Gebruik LIKE voor gedeeltelijke zoekopdrachten
+        }
+
+        if ($filter->filled('category_id')) {
             $items->where('category_id', $filter->input('category_id'));
         }
 
-        $items = $items->with('category')->get();
+        $items = $items->get();
 
         return view('item.index', compact('items', 'category'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -40,13 +47,17 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        $item = new Item();
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0|max:10000000',
+            'category_id' => 'required|exists:categories,id',
+        ]);
 
-//        $request->validate([]); // zelf opzoeken als validatie
+        $item = new Item();
         $item->user_id = auth()->user()->id;
-        $item->name = $request->input('name');
-        $item->price = $request->input('price');
-        $item->category_id = $request->input('category_id');
+        $item->name = $validatedData['name'];
+        $item->price = $validatedData['price'];
+        $item->category_id = $validatedData['category_id'];
         $item->save();
 
         return redirect()->route('items.index');
@@ -75,17 +86,19 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        // Velden opslaan in de database
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0|max:10000000',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        $item = new Item();
         $item->user_id = auth()->user()->id;
-        $item->name = $request->input('name');
-        $item->price = $request->input('price');
-        $item->category_id = 1;
+        $item->name = $validatedData['name'];
+        $item->price = $validatedData['price'];
+        $item->category_id = $validatedData['category_id'];
         $item->save();
 
-        // Sla de wijzigingen op
-        $item->save();
-
-        // Redirect terug naar de items pagina met een succesmelding
         return redirect()->route('items.show', $item->id);
     }
 
@@ -98,4 +111,15 @@ class ItemController extends Controller
         $item->delete();
         return redirect()->route('items.index');
     }
+
+    public function toggleStatus($id)
+    {
+        $item = Item::findOrFail($id);
+
+        $item->status = !$item->status;
+        $item->save();
+
+        return redirect()->route('dashboard');
+    }
+
 }

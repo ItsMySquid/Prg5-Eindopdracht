@@ -33,17 +33,17 @@
                     Back to list
                 </a>
 
-                @auth
+                @if(\Auth::user()->is_admin || \Auth::user()->id === $item->user_id)
                 <a href="{{ route('items.edit', $item->id) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md">
                     Edit item
                 </a>
-                @endauth
 
                 <form action="{{ route('items.destroy', $item->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <input type="submit" value="Delete" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md cursor-pointer">
                 </form>
+                @endif
             </div>
         </div>
     </div>
